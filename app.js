@@ -2,21 +2,16 @@ require("dotenv").config();
 require("express-async-errors");
 const path = require("path");
 const express = require("express");
-const connectDB = require("./db/connect");
-const authenticateUser = require("./middleware/authentication");
-// extra security packages
 const helmet = require("helmet");
 const xss = require("xss-clean");
-
-const app = express();
-
-// routers
+const connectDB = require("./db/connect");
+const authenticateUser = require("./middleware/authentication");
+const notFoundMiddleware = require("./middleware/not-found");
+const errorHandlerMiddleware = require("./middleware/error-handler");
 const authRouter = require("./routes/auth");
 const jobsRouter = require("./routes/jobs");
 
-// error handler
-const notFoundMiddleware = require("./middleware/not-found");
-const errorHandlerMiddleware = require("./middleware/error-handler");
+const app = express();
 
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(express.json());
