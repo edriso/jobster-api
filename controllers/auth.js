@@ -32,7 +32,7 @@ const login = async (req, res) => {
   }
   // compare password
   const token = user.createJWT();
-  res.status(StatusCodes.OK).json({ user: { name: user.name }, token });
+  res.status(StatusCodes.OK).json({ user: { name: user.name, token } });
 };
 
 module.exports = {
