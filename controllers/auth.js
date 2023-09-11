@@ -1,6 +1,10 @@
 const User = require("../models/user");
 const { StatusCodes } = require("http-status-codes");
-const { BadRequestError, UnauthenticatedError } = require("../errors");
+const {
+  BadRequestError,
+  UnauthenticatedError,
+  NotFoundError,
+} = require("../errors");
 
 const register = async (req, res) => {
   const user = await User.create({ ...req.body });
@@ -35,7 +39,34 @@ const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user: { name: user.name, token } });
 };
 
+const updateUser = async (req, res) => {
+  const { email, name, lastName, location } = req.body;
+  if (!email || !name || !lastName || !location) {
+    throw new BadRequestError("Please provide all values");
+  }
+
+  const user = await User.findOne({ _id: req.user.userId });
+  user.email = email;
+  user.name = name;
+  user.lastName = lastName;
+  user.location = location;
+  await user.save();
+
+  const token = user.createJWT();
+
+  res.status(200).json({
+    user: {
+      email: user.email,
+      name: user.name,
+      lastName: user.lastName,
+      location: user.location,
+      token,
+    },
+  });
+};
+
 module.exports = {
   register,
   login,
+  updateUser,
 };
