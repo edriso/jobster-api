@@ -13,6 +13,10 @@ const jobsRouter = require("./routes/jobs");
 
 const app = express();
 
+// configure Express.js to trust the proxy headers and
+// use the client's IP address provided by the proxy when it's available
+app.set("trust proxy", 1);
+
 app.use(express.static(path.resolve(__dirname, "./client/build")));
 app.use(express.json());
 app.use(helmet());
