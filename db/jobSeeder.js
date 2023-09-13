@@ -1,7 +1,7 @@
 require("dotenv").config();
-const Job = require("../models/Job");
+const Job = require("../models/job");
 const connectDB = require("./connect");
-const mockData = require("./jobs-mock-data.json");
+const mockData = require("./jobs-mock-data");
 
 const seed = async () => {
   try {
