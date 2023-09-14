@@ -10,6 +10,7 @@ This is a backend project developed as part of a Node.js course led by John Smil
     - [Installation](#installation)
     - [Environment Variables](#environment-variables)
     - [Starting the Server](#starting-the-server)
+    - [Populating Database with Fake Job Data](#populating-database-with-fake-job-data)
   - [Project Structure](#project-structure)
   - [Key Takeaways](#key-takeaways)
     - [Mongoose `.save()` vs. `findOneAndUpdate`](#mongoose-save-vs-findoneandupdate)
@@ -46,6 +47,16 @@ npm start
 ```
 
 The server will run on http://localhost:5000.
+
+### Populating Database with Fake Job Data
+
+To populate the MongoDB database with fake job data, you can use the following command:
+
+```sh
+npm run seed:jobs
+```
+
+This command generates sample job listings associated with the test user ID specified in the `.env` file. If you wish to tailor the generated data, you can do so by editing the `jobs-mock-data` file located in the `db` folder. We utilized [Mockaroo](https://www.mockaroo.com/) to generate the fake data.
 
 ## Project Structure
 
