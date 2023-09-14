@@ -10,10 +10,10 @@ This is a backend project developed as part of a Node.js course led by John Smil
     - [Installation](#installation)
     - [Environment Variables](#environment-variables)
     - [Starting the Server](#starting-the-server)
+    - [Registering a Test User](#registering-a-test-user)
     - [Populating Database with Fake Job Data](#populating-database-with-fake-job-data)
   - [Project Structure](#project-structure)
   - [Key Takeaways](#key-takeaways)
-    - [Mongoose `.save()` vs. `findOneAndUpdate`](#mongoose-save-vs-findoneandupdate)
 
 ## Getting Started
 
@@ -48,6 +48,26 @@ npm start
 
 The server will run on http://localhost:5000.
 
+### Registering a Test User
+
+To begin using the Jobster API and test it fully, you'll need to register a test user with specific credentials. Follow these steps to create a test user account:
+
+1. Open your web browser and navigate to http://localhost:5000/register.
+
+2. Complete the registration form with the following credentials:
+
+   - Email: `testUser@test.com`
+   - Password: `secret`
+
+3. Submit the registration form. Upon successful registration, the server will create a test user account on MongoDB.
+4. Copy this user ID.
+5. Open your `.env` file located in the project directory.
+6. Find the line for TEST_USER_ID= and paste the user ID you copied after registration. It should look like this:
+   ```sh
+   TEST_USER_ID=your_user_id_here
+   ```
+7. Save the `.env` file
+
 ### Populating Database with Fake Job Data
 
 To populate the MongoDB database with fake job data, you can use the following command:
@@ -56,7 +76,7 @@ To populate the MongoDB database with fake job data, you can use the following c
 npm run seed:jobs
 ```
 
-This command generates sample job listings associated with the test user ID specified in the `.env` file. If you wish to tailor the generated data, you can do so by editing the `jobs-mock-data` file located in the `db` folder. We utilized [Mockaroo](https://www.mockaroo.com/) to generate the fake data.
+This command generates sample job listings associated with the test user ID specified in the `.env` file. If you wish to tailor the generated data, you can do so by editing the `jobs-mock-data` file located in the `db` folder.
 
 ## Project Structure
 
@@ -80,14 +100,18 @@ This organized project structure helps maintain a clear separation of concerns, 
 
 ## Key Takeaways
 
-### Mongoose `.save()` vs. `findOneAndUpdate`
+In the course of working with this project, here are some key takeaways:
 
-When working with Mongoose, it's essential to understand the difference between using `.save()` and `findOneAndUpdate` for updating documents in your database:
+- **Using Mockaroo:** We used [Mockaroo](https://www.mockaroo.com/) to generate synthetic data, making it convenient to populate the database with fake job listings for testing and development purposes.
 
-- **Using `.save()`:** The `.save()` method on a document triggers both the pre and post-save hooks that you may have defined in your Mongoose schema. This behavior is useful when you need to perform custom actions or validations before and after saving data to the database. It is especially helpful for ensuring data integrity during the save process.
+- **Restricting Requests to a Specific User (Test User):** We implemented functionality to restrict certain requests to a specific user, typically a test user. This ensures that only authorized users can access certain routes or perform specific actions.
 
-- **Using `findOneAndUpdate`:** In contrast, the `findOneAndUpdate` method does not automatically trigger these hooks. If you have defined pre or post hooks in your schema, they will not be executed when you use `findOneAndUpdate` for updates. This can be important when you want more control over the update process and do not require the hooks to be triggered.
+- **Utilizing Rate Limiting for Specific Routes:** To enhance security and prevent abuse, we incorporated rate limiting for specific routes. Rate limiting restricts the number of requests that can be made to certain endpoints, enhancing the overall performance and security of the application.
 
-**Note**: To prevent specific hooks from triggering during updates, you can use conditional checks like `if (!this.isModified("password")) return;`. This conditional check can be particularly helpful when you want to avoid rehashing a password when it hasn't been modified during an update. It allows you to optimize the update process and avoid unnecessary computational overhead.
+- **Mongoose `.save()` vs. `findOneAndUpdate`:** When working with Mongoose, it's essential to understand the difference between using `.save()` and `findOneAndUpdate` for updating documents in your database:
 
-Understanding these distinctions and utilizing conditional checks can help you manage your Mongoose models effectively, ensuring that hooks behave as expected during updates.
+  - **Using `.save()**:\*\* The `.save()` method on a document triggers both the pre and post-save hooks that you may have defined in your Mongoose schema. This behavior is useful when you need to perform custom actions or validations before and after saving data to the database. It is especially helpful for ensuring data integrity during the save process.
+
+  - **Using `findOneAndUpdate`:** In contrast, the `findOneAndUpdate` method does not automatically trigger these hooks. If you have defined pre or post hooks in your schema, they will not be executed when you use `findOneAndUpdate` for updates. This can be important when you want more control over the update process and do not require the hooks to be triggered.
+
+  **Note**: To prevent specific hooks from triggering during updates, you can use conditional checks like `if (!this.isModified("password")) return;`. This conditional check can be particularly helpful when you want to avoid rehashing a password when it hasn't been modified during an update. It allows you to optimize the update process and avoid unnecessary computational overhead.
