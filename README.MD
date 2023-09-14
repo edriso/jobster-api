@@ -14,8 +14,6 @@ This is a backend project developed as part of a Node.js course led by John Smil
   - [Key Takeaways](#key-takeaways)
     - [Mongoose `.save()` vs. `findOneAndUpdate`](#mongoose-save-vs-findoneandupdate)
 
----
-
 ## Getting Started
 
 ### Installation
@@ -49,8 +47,6 @@ npm start
 
 The server will run on http://localhost:5000.
 
----
-
 ## Project Structure
 
 The project structure is organized as follows:
@@ -70,8 +66,6 @@ The project structure is organized as follows:
 - `client/`: Houses the frontend React application. The backend utilizes the build folder from this directory to serve the React frontend. Additionally, you can find the setup for making HTTP requests to the React frontend, along with other related utilities.
 
 This organized project structure helps maintain a clear separation of concerns, making it easier to develop, test, and maintain your backend application.
-
----
 
 ## Key Takeaways
 
