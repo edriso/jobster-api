@@ -13,7 +13,7 @@ Find the App Useful? [You can always buy me a coffee](https://www.buymeacoffee.c
 #### Run The App Locally
 
 ```sh
-npm run install && npm start
+npm ci && npm start
 ```
 
 - visit url http://localhost:3000/
@@ -3354,3 +3354,11 @@ export const showStatsThunk = async (_, thunkAPI) => {
 ```
 
 - refactor in all authenticated requests
+
+## Build tooling
+
+Requires Node.js 22 or newer. Vite replaces the retired Create React App toolchain. `npm run build` still writes to `build`, preserving the server static-file path. `npm run preview` serves that build locally.
+
+## Build tooling
+
+Requires Node.js 22 or newer. Vite replaces the retired Create React App toolchain. `npm run build` still writes to `build`, preserving the server static-file path. `npm run preview` serves that build locally.

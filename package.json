@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app",
     "dev": "nodemon app",
-    "seed:jobs": "node ./db/jobSeeder"
+    "seed:jobs": "node ./db/jobSeeder",
+    "test:smoke": "node test/security-smoke.cjs"
   },
   "keywords": [],
   "author": "",
@@ -26,9 +27,12 @@
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "nodemon": "^3.1.14"
   },
   "engines": {
     "node": "16.x"
+  },
+  "overrides": {
+    "qs": "^6.16.0"
   }
 }
